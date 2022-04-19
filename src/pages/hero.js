@@ -24,7 +24,7 @@ function Hero() {
           <div className="container">
             <div className="banner-caption">
               <div className="col-md-12 col-sm-12 banner-text">
-                <h1>7,000+ Browse Jobs</h1>
+                <h1>Find Your Dream Job</h1>
 
                 <form onSubmit={submitForm} className="form-horizontal">
                   <div className="col-md-4 no-padd">

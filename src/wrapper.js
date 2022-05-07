@@ -69,7 +69,7 @@ function Wrapper(props) {
       <div className="clearfix"></div>
       {props.children}
       <div className="clearfix"></div>
-      <footer className="footerLast">Copyright &copy; Group-3</footer>
+      <footer className="footerLast">Copyright &copy; iDris</footer>
       <div className="clearfix"></div>
     </>
   );

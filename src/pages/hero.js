@@ -14,7 +14,7 @@ function Hero() {
     e.preventDefault();
     const response = await axios.post("jobs/joblist", search);
     if (response.data.length)
-      return navigate("/joblist", { state: { result: response.data } });
+      return navigate("/joblist", { state: { search, result: response.data } });
   };
 
   return (

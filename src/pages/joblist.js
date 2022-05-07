@@ -1,35 +1,40 @@
+import axios from "axios";
 import { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import renderDisplay from "../searchutils/jobcardgen";
 import Wrapper from "../wrapper";
-let end = 6;
-let start = 0;
+
+const getPageData = async (page, params) => {
+  const response = await axios.post(`jobs/joblist?page=${page}`, params);
+  if (response.data.length) return response.data;
+};
+
+let page = 1;
+
 function JobList() {
   const { state } = useLocation();
-  const navigate = useNavigate();
-  const data = state.result;
-  const [toDisplay, handleDisplay] = useState(data.slice(start, end));
+  const [toDisplay, handleDisplay] = useState(state.result);
   const allJobs = renderDisplay(toDisplay);
-  const changePage = (e) => {
+  const changePage = async (e) => {
     switch (e.target.textContent) {
       case "Prev":
-        if (start > 6) {
-          end -= 6;
-          start = end - 6;
-          handleDisplay(data.slice(start, end));
-        }
+        if (page > 1) page--;
+        handleDisplay(await getPageData(page, state.search));
         break;
 
       case "Next":
-        if (data.length > end) {
-          end += 6;
-          start = end - 6;
-          handleDisplay(data.slice(start, end));
+        try {
+          page++;
+          const result = await getPageData(page, state.search);
+          handleDisplay(result);
+        } catch (error) {
+          page--;
         }
         break;
 
       default:
-        navigate(0);
+        page = 1;
+        handleDisplay(await getPageData(page, state.search));
         break;
     }
   };

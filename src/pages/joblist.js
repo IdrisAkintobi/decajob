@@ -13,19 +13,20 @@ let page = 1;
 
 function JobList() {
   const { state } = useLocation();
-  const [toDisplay, handleDisplay] = useState(state.result);
+  const { result, search } = state;
+  const [toDisplay, handleDisplay] = useState(result);
   const allJobs = renderDisplay(toDisplay);
   const changePage = async (e) => {
     switch (e.target.textContent) {
       case "Prev":
         if (page > 1) page--;
-        handleDisplay(await getPageData(page, state.search));
+        handleDisplay(await getPageData(page, search));
         break;
 
       case "Next":
         try {
           page++;
-          const result = await getPageData(page, state.search);
+          const result = await getPageData(page, search);
           handleDisplay(result);
         } catch (error) {
           page--;
@@ -34,7 +35,7 @@ function JobList() {
 
       default:
         page = 1;
-        handleDisplay(await getPageData(page, state.search));
+        handleDisplay(await getPageData(page, search));
         break;
     }
   };

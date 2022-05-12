@@ -6,8 +6,7 @@ function SignUp() {
   const navigate = useNavigate();
   const [details, handleDetails] = useState({});
   const getInfo = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
+    const { name, value } = e.target;
     handleDetails({ ...details, [name]: value });
   };
 

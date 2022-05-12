@@ -2,12 +2,11 @@ import { useLocation, Link } from "react-router-dom";
 import Wrapper from "../wrapper";
 const Profile = () => {
   const { state } = useLocation();
-  const bText = state.result.role === "Applicant" ? "Search Job" : "Post Job";
-  const bLink = state.result.role === "Applicant" ? "/" : "/createjob";
+  const user = state.result;
+  const bText = user.role === "Applicant" ? "Search Job" : "Post Job";
+  const bLink = user.role === "Applicant" ? "/" : "/createjob";
   const hText =
-    state.result.role === "Applicant"
-      ? "Applicant Profile"
-      : "Recruiter Profile";
+    user.role === "Applicant" ? "Applicant Profile" : "Recruiter Profile";
   return (
     <Wrapper>
       <div className="clearfix"></div>
@@ -28,15 +27,15 @@ const Profile = () => {
               </div>
             </div>
             <div className="detail-status">
-              <span>{state.result.role}</span>
+              <span>{user.role}</span>
             </div>
           </div>
 
           <div className="row bottom-mrg">
             <div className="col-md-12 col-sm-12">
               <div className="advance-detail detail-desc-caption">
-                <h4>{state.result.name}</h4>
-                <span className="designation">{state.result.email}</span>
+                <h4>{user.name}</h4>
+                <span className="designation">{user.email}</span>
               </div>
             </div>
           </div>

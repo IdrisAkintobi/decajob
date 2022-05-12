@@ -3,8 +3,7 @@ let exprInfo;
 function Experience() {
   const [ExprInfo, handleExprInfo] = useState({});
   const updateInfo = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
+    const { name, value } = e.target;
     handleExprInfo({ ...ExprInfo, [name]: value });
     exprInfo = ExprInfo;
   };

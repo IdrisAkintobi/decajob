@@ -6,8 +6,7 @@ function Hero() {
   const navigate = useNavigate();
   const [search, handleSearch] = useState({});
   const getQuery = (e) => {
-    const query = e.target.name;
-    const value = e.target.value;
+    const { name: query, value } = e.target;
     handleSearch({ ...search, [query]: value });
   };
   const submitForm = async (e) => {

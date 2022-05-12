@@ -3,8 +3,7 @@ let eduInfo;
 function Education() {
   const [EduInfo, handleEduInfo] = useState({});
   const updateInfo = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
+    const { name, value } = e.target;
     handleEduInfo({ ...EduInfo, [name]: value });
     eduInfo = EduInfo;
   };

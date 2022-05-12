@@ -3,8 +3,7 @@ let mainData;
 function MainInfo() {
   const [mainDetails, handleMainDetails] = useState({ gender: "Female" });
   const getDetails = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
+    const { name, value } = e.target;
     handleMainDetails({ ...mainDetails, [name]: value });
     mainData = mainDetails;
   };

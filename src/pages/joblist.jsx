@@ -1,8 +1,10 @@
 import axios from "axios";
-import { useState } from "react";
-import { useLocation } from "react-router-dom";
-import renderDisplay from "../searchutils/jobcardgen";
 import Wrapper from "../wrapper";
+import { useLocation } from "react-router-dom";
+import { useState, useContext, useEffect } from "react";
+
+import renderDisplay from "../searchutils/jobcardgen";
+import DecajobContext from "../context/DecajobContext";
 
 const getPageData = async (page, params) => {
   const response = await axios.post(`jobs/joblist?page=${page}`, params);
@@ -12,11 +14,22 @@ const getPageData = async (page, params) => {
 let page = 1;
 
 function JobList() {
+  const { BarLoading: Loading } = useContext(DecajobContext);
+  let [loading, setLoading] = useState(false);
+
   const { state } = useLocation();
   const { result, search } = state;
   const [toDisplay, handleDisplay] = useState(result);
   const allJobs = renderDisplay(toDisplay);
+
+  //Effect to hide loading bar
+  useEffect(() => {
+    setLoading(false);
+  }, [toDisplay]);
+
   const changePage = async (e) => {
+    //Show loading bar
+    setLoading(true);
     switch (e.target.textContent) {
       case "Prev":
         if (page > 1) page--;
@@ -26,10 +39,10 @@ function JobList() {
       case "Next":
         try {
           page++;
-          const result = await getPageData(page, search);
-          handleDisplay(result);
+          handleDisplay(await getPageData(page, search));
         } catch (error) {
           page--;
+          setLoading(false);
         }
         break;
 
@@ -56,6 +69,7 @@ function JobList() {
         </section>
       </div>
       <div className="clearfix"></div>
+      <Loading status={loading} />
       <nav aria-label="Page navigation">
         <ul className="pagination pagination-sm">
           <li className="page-item">

@@ -3,11 +3,14 @@ function renderDisplay(params) {
     e.preventDefault();
     const item = e.target;
     const user = localStorage.getItem("user");
-    const { role } = JSON.parse(user);
-    if (role === "Applicant") {
-      item.textContent = "Applied";
+    if (user) {
+      const { role } = JSON.parse(user);
+      if (role === "Applicant") {
+        item.textContent = "Applied";
+      }
     }
   };
+
   return params.map((company, i) => {
     const {
       type,

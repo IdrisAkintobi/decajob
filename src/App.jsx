@@ -7,19 +7,22 @@ import Resume from "./pages/resume";
 import CreateJob from "./pages/createjob";
 import JobList from "./pages/joblist";
 import Profile from "./pages/profile";
+import { DecajobProvider } from "./context/DecajobContext";
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Hero />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/createresume" element={<Resume />} />
-        <Route path="/createjob" element={<CreateJob />} />
-        <Route path="/joblist" element={<JobList />} />
-        <Route path="/profile" element={<Profile />} />
-      </Routes>
-    </Router>
+    <DecajobProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Hero />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/createresume" element={<Resume />} />
+          <Route path="/createjob" element={<CreateJob />} />
+          <Route path="/joblist" element={<JobList />} />
+          <Route path="/profile" element={<Profile />} />
+        </Routes>
+      </Router>
+    </DecajobProvider>
   );
 }
 export default App;

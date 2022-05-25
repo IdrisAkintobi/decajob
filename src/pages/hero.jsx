@@ -20,10 +20,12 @@ function Hero() {
   const submitForm = async (e) => {
     e.preventDefault();
     setLoading(!loading);
-    const response = await axios.post("jobs/joblist", search);
-    if (response.data.length)
+    try {
+      const response = await axios.post("jobs/joblist", search);
       return navigate("/joblist", { state: { search, result: response.data } });
-    return setLoading(!loading);
+    } catch (error) {
+      setLoading(false);
+    }
   };
 
   return (
